@@ -1,0 +1,14 @@
+{
+  "name": "okcandidate-okcontact",
+  "version": "1.0.0",
+  "description": "The server-side application used to alert OKCandidate users of the upcoming election via user opt-in e-mail or SMS, and send them a link to their survey results.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "twilio": "^2.11.0"
+  }
+}

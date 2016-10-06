@@ -47,6 +47,7 @@ pids
 *.pid.lock
 
 # Babel/Node/npm related #
+##########################
 build/Release
 node_modules
 jspm_packages
@@ -54,3 +55,5 @@ jspm_packages
 .eslintcache
 .node_repl_history
 *.tgz
+
+auth.js

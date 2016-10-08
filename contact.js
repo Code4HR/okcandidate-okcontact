@@ -38,20 +38,13 @@ function scanUsersAndContact(database){
 }
 
 function sendEmail(surveyor) {
-<<<<<<< HEAD
     let mailgun = new Mailgun({apiKey: api_key, domain: domain});
-    
-=======
-
-    let mailgun = new Mailgun({apiKey: api_key, domain: domain});
->>>>>>> 42531283b24c15fdc02a85754228157ab53ea5da
     var data = {
         from: from_who,
         to: surveyor.userEmail,
         subject: 'Vote for your candidate on Tuesday! ',
         html: 'Greetings, ' + surveyor.userName + '!  You are receiving this email because you asked for a reminder when you took the OK-Candidate Survey.  The election is next Tuesday, so don\'t forget to vote.  If you would like to review your survey results, you can <a href="http://google.com/#' + surveyor.userId + '">Click here</a>.  Thanks for doing your part in democracy.  '
     };
-
     mailgun.messages().send(data, function (err, body) {
         if (err) {
             console.log(err);

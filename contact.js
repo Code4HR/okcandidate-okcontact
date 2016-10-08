@@ -38,8 +38,13 @@ function scanUsersAndContact(database){
 }
 
 function sendEmail(surveyor) {
+<<<<<<< HEAD
     let mailgun = new Mailgun({apiKey: api_key, domain: domain});
     
+=======
+
+    let mailgun = new Mailgun({apiKey: api_key, domain: domain});
+>>>>>>> 42531283b24c15fdc02a85754228157ab53ea5da
     var data = {
         from: from_who,
         to: surveyor.userEmail,

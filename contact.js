@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 /**************************************************
 Import credentials, phone numbers, and mail domains
@@ -7,8 +7,8 @@ const accountSid = process.env['TWILIO_ACCOUNT_SID'];
 const authToken = process.env['TWILO_AUTH_TOKEN'];
 const api_key = process.env['MAILGUN_SECRET_API'];
 const twilioNum = process.env['TWILIONUM'];
-const domain = process.env['MAILGUN_DOMAIN']
-const from_who = process.env['MAILGUN_FROM_ADDRESS']
+const domain = process.env['MAILGUN_DOMAIN'];
+const from_who = process.env['MAILGUN_FROM_ADDRESS'];
 
 /**********************************************
 Import node modules and mockDB used for testing
@@ -45,13 +45,13 @@ function sendEmail(surveyor) {
         subject: 'Vote for your candidate on Tuesday! ',
         html: 'Greetings!  You are receiving this email because you asked for a reminder when you took the OK-Candidate Survey.  The election is next Tuesday, so don\'t forget to vote.  <a href="http://okc.code4hr.org/' + surveyor.userId + '">If you would like to review your survey results, you can click here</a>.  Thanks for doing your part in democracy.  '
     };
-    mailgun.messages().send(data, function (err, body) {
+    mailgun.messages().send(data, function (err) {
         if (err) {
             console.log(err);
         }
         else {
-            console.log("\nSuccess: emailed userId:", surveyor.userId, 
-                " at ", surveyor.userEmail);
+            console.log('\nSuccess: emailed userId:', surveyor.userId, 
+                ' at ', surveyor.userEmail);
         }
     });  
 }
@@ -62,12 +62,12 @@ function sendSMS(surveyor){
         from: twilioNum,
         body: 'This is your reminder to vote Tuesday.  Go to http://okc.code4hr.org/'+ surveyor.userId + ' to review your survey results.'
     },  
-        function (err, message){
+        function (err){
             if (err){
-                console.log("\nError! ", err);
+                console.log('\nError! ', err);
             }else{
-                console.log("\nSuccess: txted userId:", surveyor.userId, 
-                    " at ", surveyor.userPhone);
+                console.log('\nSuccess: txted userId:', surveyor.userId, 
+                    ' at ', surveyor.userPhone);
             }
         }
     );

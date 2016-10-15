@@ -5,8 +5,9 @@ Import credentials, phone numbers, and mail domains
 **************************************************/
 const accountSid = process.env['TWILIO_ACCOUNT_SID'];
 const authToken = process.env['TWILO_AUTH_TOKEN'];
-const api_key = process.env['MAILGUN_SECRET_API'];
 const twilioNum = process.env['TWILIONUM'];
+
+const api_key = process.env['MAILGUN_SECRET_API'];
 const domain = process.env['MAILGUN_DOMAIN'];
 const from_who = process.env['MAILGUN_FROM_ADDRESS'];
 
@@ -19,10 +20,11 @@ const userDatabase = require('./mockDB.js');
 
 scanUsersAndContact(userDatabase.users);
 
-/********************
-Functions definitions
-********************/
-function scanUsersAndContact(database){
+/*******************
+Function Definitions
+*******************/
+
+function scanUsersAndContact(database) {
     /**************************************************************************
     Iterates over the database to see if users have requested a reminder email,
     SMS, both, or neither.
@@ -56,16 +58,17 @@ function sendEmail(surveyor) {
     });  
 }
 
-function sendSMS(surveyor){
+function sendSMS(surveyor) {
     client.messages.create({
         to: surveyor.userPhone,
         from: twilioNum,
         body: 'This is your reminder to vote Tuesday.  Go to http://okc.code4hr.org/'+ surveyor.userId + ' to review your survey results.'
     },  
-        function (err){
-            if (err){
+        function (err) {
+            if (err) {
                 console.log('\nError! ', err);
-            }else{
+            } 
+            else {
                 console.log('\nSuccess: txted userId:', surveyor.userId, 
                     ' at ', surveyor.userPhone);
             }

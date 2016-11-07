@@ -23,7 +23,8 @@ To make use of [OK Candidate](https://www.github.com/Code4HR/okcandidate) you wi
 
 * `userDatabase` - Point this to your list of users/surveyors.  The database this is currently reading from is set up as an array of objects, with each user being assigned to their own unique object.  If you are using a different schema you will likely need to rewrite `scanUsersAndContact()` to properly iterate over your database.  An example of the used database is below.
 
-`var users = [
+```javascript
+var users = [
     {
         id:1,
         "surveyId":1,
@@ -38,6 +39,6 @@ To make use of [OK Candidate](https://www.github.com/Code4HR/okcandidate) you wi
     },
 ];
 exports.users = users;
-`
+```
 ## Contributing
 This project is, for the most part, complete.  Don't fret though, you can still help out your community by [Volunteering with your local Code for America Bridge](https://www.codeforamerica.org/join-us/volunteer-with-us)!  

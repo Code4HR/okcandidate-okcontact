@@ -44,8 +44,8 @@ function sendEmail(surveyor) {
     var data = {
         from: from_who,
         to: surveyor.userEmail,
-        subject: 'Vote for your candidate today! ',
-        html: 'Greetings!  You are receiving this email because you asked for a reminder when you took the OK-Candidate Survey.  The election is today, so make sure you cast your vote!  <a href="http://okc.code4hr.org/' + surveyor.id + '">If you would like to review your survey results, you can click here</a>.  Thanks for doing your part in democracy. ' 
+        subject: 'Vote for your candidate Tomorrow!',
+        html: 'Greetings!  You are receiving this email because you asked for a reminder when you took the OK-Candidate Survey.  The election is tomorrow, so make sure you cast your vote!  <a href="http://okc.code4hr.org/' + surveyor.id + '">If you would like to review your survey results, you can click here</a>.  Thanks for doing your part in democracy! ' 
     };
     mailgun.messages().send(data, function (err) {
         if (err) {
@@ -68,7 +68,7 @@ function sendSMS(surveyor) {
     client.messages.create({
         to: formattedUserNumber,
         from: twilioNum,
-        body: 'This is your reminder to vote Today!  Go to http://okc.code4hr.org/' + surveyor.id + ' to review your survey results.'
+        body: 'This is your reminder to vote Tuesday!  Go to http://okc.code4hr.org/' + surveyor.id + ' to review your survey results.'
     },  
         function (err) {
             if (err) {

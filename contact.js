@@ -16,7 +16,7 @@ Import node modules and mockDB used for testing
 **********************************************/
 const Mailgun = require('mailgun-js');
 const client = require('twilio')(accountSid, authToken);
-const userDatabase = require('./mockDB.js');  
+const userDatabase = require('./mockDB.js');
 
 scanUsersAndContact(userDatabase.users);
 
@@ -28,7 +28,7 @@ function scanUsersAndContact(database) {
     /**************************************************************************
     Iterates over the database to see if users have requested a reminder email,
     SMS, both, or neither.
-    **************************************************************************/    
+    **************************************************************************/
     for (let i = 0; i < database.length; i++){
         if (database[i].userPhone){
             sendSMS(database[i]);
@@ -36,7 +36,7 @@ function scanUsersAndContact(database) {
         if (database[i].userEmail){
             sendEmail(database[i]);
         }
-    } 
+    }
 }
 
 function sendEmail(surveyor) {
@@ -44,38 +44,38 @@ function sendEmail(surveyor) {
     var data = {
         from: from_who,
         to: surveyor.userEmail,
-        subject: 'Vote for your candidate Tomorrow!',
-        html: 'Greetings!  You are receiving this email because you asked for a reminder when you took the OK-Candidate Survey.  The election is tomorrow, so make sure you cast your vote!  <a href="http://okc.code4hr.org/' + surveyor.id + '">If you would like to review your survey results, you can click here</a>.  Thanks for doing your part in democracy! ' 
+        subject: 'Vote For Your OKCandidates Tomorrow!',
+        html: 'Greetings!  You are receiving this email because you asked for a reminder when you took the OKCandidate survey.  The election is tomorrow, so make sure you cast your vote!  <a href="http://okcandidate.code4hr.org/votercard/' + surveyor.id + '">If you would like to review your survey results, click here</a>.  Thanks for doing your part! '
     };
     mailgun.messages().send(data, function (err) {
         if (err) {
             console.log(err);
         }
         else {
-            console.log('\nSuccess: emailed userId:', surveyor.id, 
+            console.log('\nSuccess: emailed userId:', surveyor.id,
                 ' at ', surveyor.userEmail);
         }
-    });  
+    });
 }
 
 function sendSMS(surveyor) {
     //Raw 10-digit phone number which may have non-digits in it.
-    var rawUserNumber = surveyor.userPhone; 
+    var rawUserNumber = surveyor.userPhone;
 
     //Converted into +12345678901 format for Twilio
-    var formattedUserNumber = "+1".concat(rawUserNumber.replace(/[^\d]/g,''))  
-    
+    var formattedUserNumber = "+1".concat(rawUserNumber.replace(/[^\d]/g,''))
+
     client.messages.create({
         to: formattedUserNumber,
         from: twilioNum,
-        body: 'This is your reminder to vote Tuesday!  Go to http://okc.code4hr.org/' + surveyor.id + ' to review your survey results.'
-    },  
+        body: 'This is your reminder to vote tomorrow!  Go to http://okcandidate.code4hr.org/votercard/' + surveyor.id + ' to review your survey results.'
+    },
         function (err) {
             if (err) {
                 console.log('\nError! ', err);
-            } 
+            }
             else {
-                console.log('\nSuccess: txted userId:', surveyor.id, 
+                console.log('\nSuccess: txted userId:', surveyor.id,
                     ' at ', formattedUserNumber);
             }
         }

@@ -21,8 +21,24 @@ To make use of [OK Candidate](https://www.github.com/Code4HR/okcandidate) you wi
 
 * `from_who` - Your displayed outgoing e-mail address.  The domain will be your configured [Mailgun Sending Domain](https://mailgun.com/app/dashboard).  Example: `Mailgun@mg.example.com` or `OKC@mg.example.com`.  
 
-* `userDatabase` - Point this to your list of users/surveyors.  The database this is currently reading from is set up as an array of objects, with each user being assigned to their own unique object.  If you are using a different schema you will likely need to rewrite `scanUsersAndContact()` to properly iterate over your database.
+* `userDatabase` - Point this to your list of users/surveyors.  The database this is currently reading from is set up as an array of objects, with each user being assigned to their own unique object.  If you are using a different schema you will likely need to rewrite `scanUsersAndContact()` to properly iterate over your database.  An example of the used database is below.
 
-
+`var users = [
+    {
+        id:1,
+        "surveyId":1,
+        "userEmail":"user1email@example.com",
+        "userPhone":"###-###-####" 
+    },
+    {
+        id:2,
+        "surveyId":1,
+        "userEmail":"UserEmail2@example.com",
+        "userPhone":"(###) ###-####"
+    },
+];
+exports.users = users;
+`
 ## Contributing
 This project is, for the most part, complete.  Don't fret though, you can still help out your community by [Volunteering with your local Code for America Bridge](https://www.codeforamerica.org/join-us/volunteer-with-us)!  
+

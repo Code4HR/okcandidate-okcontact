@@ -13,6 +13,7 @@
     "twilio": "^2.11.0"
   },
   "devDependencies": {
-    "eslint": "^3.7.1",
+    "babelify": "^7.3.0",
+    "eslint": "^3.7.1"
   }
 }

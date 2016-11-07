@@ -3,13 +3,13 @@
 /**************************************************
 Import credentials, phone numbers, and mail domains
 **************************************************/
-const accountSid = process.env['TWILIO_ACCOUNT_SID'];
-const authToken = process.env['TWILO_AUTH_TOKEN'];
-const twilioNum = process.env['TWILIONUM'];
+const accountSid = process.env['OKC_TWILIO_ACCOUNT_SID'];
+const authToken = process.env['OKC_TWILO_AUTH_TOKEN'];
+const twilioNum = process.env['OKC_TWILIONUM'];
 
-const api_key = process.env['MAILGUN_SECRET_API'];
-const domain = process.env['MAILGUN_DOMAIN'];
-const from_who = process.env['MAILGUN_FROM_ADDRESS'];
+const api_key = process.env['OKC_MAILGUN_SECRET_API'];
+const domain = process.env['OKC_MAILGUN_DOMAIN'];
+const from_who = process.env['OKC_MAILGUN_FROM_ADDRESS'];
 
 /**********************************************
 Import node modules and mockDB used for testing
@@ -30,10 +30,10 @@ function scanUsersAndContact(database) {
     SMS, both, or neither.
     **************************************************************************/    
     for (let i = 0; i < database.length; i++){
-        if (database[i].notifyByPhone){
+        if (database[i].userPhone){
             sendSMS(database[i]);
         }
-        if (database[i].notifyByEmail){
+        if (database[i].userEmail){
             sendEmail(database[i]);
         }
     } 
@@ -44,33 +44,39 @@ function sendEmail(surveyor) {
     var data = {
         from: from_who,
         to: surveyor.userEmail,
-        subject: 'Vote for your candidate on Tuesday! ',
-        html: 'Greetings!  You are receiving this email because you asked for a reminder when you took the OK-Candidate Survey.  The election is next Tuesday, so don\'t forget to vote.  <a href="http://okc.code4hr.org/' + surveyor.userId + '">If you would like to review your survey results, you can click here</a>.  Thanks for doing your part in democracy.  '
+        subject: 'Vote for your candidate today! ',
+        html: 'Greetings!  You are receiving this email because you asked for a reminder when you took the OK-Candidate Survey.  The election is today, so make sure you cast your vote!  <a href="http://okc.code4hr.org/' + surveyor.id + '">If you would like to review your survey results, you can click here</a>.  Thanks for doing your part in democracy. ' 
     };
     mailgun.messages().send(data, function (err) {
         if (err) {
             console.log(err);
         }
         else {
-            console.log('\nSuccess: emailed userId:', surveyor.userId, 
+            console.log('\nSuccess: emailed userId:', surveyor.id, 
                 ' at ', surveyor.userEmail);
         }
     });  
 }
 
 function sendSMS(surveyor) {
+    //Raw 10-digit phone number which may have non-digits in it.
+    var rawUserNumber = surveyor.userPhone; 
+
+    //Converted into +12345678901 format for Twilio
+    var formattedUserNumber = "+1".concat(rawUserNumber.replace(/[^\d]/g,''))  
+    
     client.messages.create({
-        to: surveyor.userPhone,
+        to: formattedUserNumber,
         from: twilioNum,
-        body: 'This is your reminder to vote Tuesday.  Go to http://okc.code4hr.org/'+ surveyor.userId + ' to review your survey results.'
+        body: 'This is your reminder to vote Today!  Go to http://okc.code4hr.org/' + surveyor.id + ' to review your survey results.'
     },  
         function (err) {
             if (err) {
                 console.log('\nError! ', err);
             } 
             else {
-                console.log('\nSuccess: txted userId:', surveyor.userId, 
-                    ' at ', surveyor.userPhone);
+                console.log('\nSuccess: txted userId:', surveyor.id, 
+                    ' at ', formattedUserNumber);
             }
         }
     );

@@ -41,4 +41,3 @@ exports.users = users;
 `
 ## Contributing
 This project is, for the most part, complete.  Don't fret though, you can still help out your community by [Volunteering with your local Code for America Bridge](https://www.codeforamerica.org/join-us/volunteer-with-us)!  
-

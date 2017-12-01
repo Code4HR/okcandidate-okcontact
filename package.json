@@ -4,16 +4,20 @@
   "description": "The server-side application used to alert OKCandidate users of the upcoming election via user opt-in e-mail or SMS, and send them a link to their survey results.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "mailgun-js": "^0.11.3",
-    "twilio": "^3.5.0"
+    "twilio": "^3.5.0",
+    "snyk": "^1.52.1"
   },
   "devDependencies": {
     "babelify": "^7.3.0",
     "eslint": "^3.7.1"
-  }
+  },
+  "snyk": true
 }

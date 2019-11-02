@@ -17,7 +17,7 @@
   },
   "devDependencies": {
     "babelify": "^7.3.0",
-    "eslint": "^3.7.1"
+    "eslint": "^6.6.0"
   },
   "snyk": true
 }
